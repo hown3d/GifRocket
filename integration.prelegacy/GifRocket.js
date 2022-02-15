@@ -32,13 +32,14 @@ class Script {
 
     process_outgoing_response({ request, response }) {
         let gif = '';
-        if(response.content.data.length !== 0) {
-            if(Array.isArray(response.content.data)) {
-                const count = response.content.data.length - 1;
+        content = JSON.parse(response.content)
+        if(content.data.length !== 0) {
+            if(Array.isArray(content.data)) {
+                const count = content.data.length - 1;
                 const i = Math.floor((Math.random() * count));
-                gif = response.content.data[i].images.original.url;
+                gif = content.data[i].images.original.url;
             } else {
-                gif = response.content.data.image_original_url;
+                gif = content.data.image_original_url;
             }
             return {
                 content: {
